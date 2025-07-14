@@ -167,14 +167,9 @@ class NeuralNet:
         plt.tight_layout()
         plt.show()
 
-        # Print summary of all models
-        print("\n" + "="*80)
-        print("SUMMARY OF ALL MODELS")
-        print("="*80)
+        self.summarize_results(model_results)
 
         results_df = pd.DataFrame(model_results)
-        print("\nDetailed Results:")
-        print(results_df.to_string(index=False))
 
         # Find best models
         best_train_model = results_df.loc[results_df['train_r2'].idxmax()]
@@ -191,6 +186,25 @@ class NeuralNet:
               f"layers={best_test_model['num_hidden_layers']}, neurons={best_test_model['num_neurons']}")
 
         return model_results
+
+    def summarize_results(self, model_results):
+        print("\n" + "="*80)
+        print("SUMMARY OF ALL MODELS")
+        print("="*80)
+        
+        # Convert results to DataFrame
+        results_df = pd.DataFrame(model_results)
+        
+        # Print detailed results to console
+        print("\nDetailed Results:")
+        print(results_df.to_string(index=False))
+        
+        # --- Save detailed results to CSV ---
+        results_csv_path = "neural_network_results.csv"
+        results_df.to_csv(results_csv_path, index=False)
+        print(f"\n✓ Detailed results saved to: {results_csv_path}")
+        print(f"\nAll tabular results successfully saved!")
+        return results_df
 
 def clean_data(X, y):
     print("\n--- Cleaning Data ---")
