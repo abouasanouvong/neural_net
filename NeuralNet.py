@@ -87,7 +87,6 @@ class NeuralNet:
 
         # Store results for each model
         model_results = []
-        model_histories = []
 
         # Create all combinations of hyperparameters
         param_combinations = list(itertools.product(
@@ -192,6 +191,7 @@ class NeuralNet:
               f"layers={best_test_model['num_hidden_layers']}, neurons={best_test_model['num_neurons']}")
 
         return model_results
+
 def clean_data(X, y):
     print("\n--- Cleaning Data ---")
     # Variables to be excluded for optimization
